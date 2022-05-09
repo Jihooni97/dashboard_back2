@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.kr.board.service.impl.BoardMapper">
+
+	<select id="selectChart" resultType="HashMap">
+		SELECT	*	FROM	gw_data_value_org
+		WHERE	site_code 	=	'KB001'
+		ORDER BY data_time DESC
+		LIMIT	200
+	</select>
+
+	<select id="selectList" resultType="HashMap">
+		SELECT	*	FROM	gw_data_value_org
+		WHERE	site_code 	=	'KB001'
+		LIMIT	5	OFFSET	#{offset}
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM gw_data_value_org
+		WHERE site_code = 'KB001'
+	</select>
+
+</mapper>

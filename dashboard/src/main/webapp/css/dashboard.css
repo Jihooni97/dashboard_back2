@@ -1,0 +1,97 @@
+@CHARSET "UTF-8";
+
+#top{
+	background-color : rgb(224, 224, 224, 0.13);
+}
+
+#top_contents{
+	display : flex;
+}
+
+#board{
+	margin-left : 26%;
+	width : 165px;
+}
+
+#weather{
+	width : 60px;
+}
+
+#temp{
+	height: 40px;
+	width: 60px;
+	margin-top : 2%;	
+}
+
+#time{
+	margin-top : 0.8%;
+	width : 150px;
+}
+
+#board h1{
+	text-align : center;
+}
+
+#mapBoard{
+	position : absolute;
+	left : 29%;
+	margin-top : 1%;
+}
+
+#vmap{
+	width : 800px; 
+	height : 350px;
+}
+
+/* 그래프 */
+#graph{
+	width : 400px; 
+	height : 220px;
+	background-color : rgb(224, 224, 224, 0.15);
+/* 	margin-left : 3%; */
+	margin-top : 2.5%;
+	
+}
+
+/* body */
+#boardBody{
+	background-color : rgb(224, 224, 224, 0.13);
+	width : 900px;
+	height : 700px;
+/* 	position : absolute; */
+	margin-left : 26.5%;
+/* 	margin-top : 1%; */
+}
+
+#pageBtn{
+	text-align : center;
+}
+
+#selectList{
+/* 	margin-top : 400px; */
+	padding-top : 50%;
+}
+
+/* 왼쪽 보드 */
+#leftBoard{
+	background-color : rgb(224, 224, 224, 0.13);
+	position : absolute;
+	left : 0%;
+	top : 10%;
+	width : 400px; 
+	height : 700px;
+}
+/* 오른쪽 보드 */
+#rightBoard{
+	background-color : rgb(224, 224, 224, 0.13);
+	position : absolute;
+	right : 0%;
+	top : 10%;
+	width : 400px; 
+	height : 700px;
+}
+
+#localSelect{
+	margin-left: 5%;
+	margin-top: 1%;
+}
