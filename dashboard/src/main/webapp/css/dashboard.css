@@ -9,12 +9,19 @@
 }
 
 #board{
-	margin-left : 26%;
-	width : 165px;
+	margin-left : 27%;
+	width : 236px;
+	height: 80px;
+}
+
+#board h1{
+	text-align : center;
+	font-size: xxx-large;
 }
 
 #weather{
 	width : 60px;
+	margin-left: 3%;
 }
 
 #temp{
@@ -26,10 +33,6 @@
 #time{
 	margin-top : 0.8%;
 	width : 150px;
-}
-
-#board h1{
-	text-align : center;
 }
 
 #mapBoard{
@@ -63,6 +66,10 @@
 /* 	margin-top : 1%; */
 }
 
+#excel{
+	float : right; 
+}
+
 #pageBtn{
 	text-align : center;
 }
@@ -92,6 +99,7 @@
 }
 
 #localSelect{
-	margin-left: 5%;
-	margin-top: 1%;
+/* 	margin-left: 5%; */
+	margin-top: 7.5%;
+	float: right;
 }

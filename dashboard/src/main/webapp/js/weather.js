@@ -72,9 +72,10 @@ function getWeather(){
 		apiURL += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON'); /*응답자료형식 / XML/JSON*/
 		apiURL += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(base_date); /*조회 날짜 20220000*/
 		apiURL += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(base_time) + encodeURIComponent('00'); /*조회 시간 0000 02AM부터 3시간 간격 조회가능*/
+		//평촌동 위치
 		apiURL += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('60'); /*x좌표값*/
-		apiURL += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('127'); /*y좌표값*/
-
+		apiURL += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('123'); /*y좌표값*/
+		//37.399445, 126.968368 (구글좌표계)
 	$.ajax({
 		url : apiURL,
 		type : 'GET',
@@ -207,7 +208,7 @@ function startClock(){
 	var today = now.getDay();
 	
 	setInterval( getClock, 1000 );
-	if(minutes == 0){
+	if(minutes == 1){
 	setInterval( getWeather, 60000);
 	}
 }

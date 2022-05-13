@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,45 +29,35 @@
 <script type="text/javascript" src="/js/map.js"></script>
 <script type="text/javascript" src="/js/weather.js"></script>
 <script type="text/javascript" src="/js/chart.js"></script>
-<script type="text/javascript" src="/js/list.js"></script>
-<script type="text/javascript" src="/js/paging.js"></script>
+<!-- <script type="text/javascript" src="/js/list.js"></script> -->
+<script type="text/javascript" src="/js/list_test.js"></script>
 </head>
 
 <body>
 	<div id="container">
-	
+
 		<!-- 상단 -->
 		<div id="top">
-		
+
 			<div id="top_contents">
 				<!-- 날씨 -->
-				<div id="weather">
-				</div>
+				<div id="weather"></div>
 				<!-- 온도 -->
 				<div id="temp"></div>
 				<!-- 시간 -->
 				<div id="time">
 					<h4 id="clock"></h4>
 				</div>
-				<!-- 제목 --> 
+				<!-- 제목 -->
 				<div id="board">
 					<h1>DashBoard</h1>
 				</div>
-				
+
 			</div>
-			
+
 		</div>
 
 		<div id="boardBody">
-
-			<!-- 지역 -->
-			<div id="localSelect">
-				<select name="type">
-					<option value="local1">KB001</option>
-					<option value="local2">SDA001</option>
-					<option value="local3">DU001</option>
-				</select>
-			</div>
 
 			<!-- 맵 -->
 			<div id="mapBoard">
@@ -75,11 +66,23 @@
 
 				<div style="display: none;">
 					<!-- overlay -->
-					<a class="overlay" id="vienna" target="_blank" href="https://www.google.co.kr/maps/search/%EA%B0%95%EB%82%A8%EC%97%AD/data=!3m1!4b1?hl=ko">강남역</a>
+					<a class="overlay" id="vienna" target="_blank"
+						href="https://www.google.co.kr/maps/search/%EA%B0%95%EB%82%A8%EC%97%AD/data=!3m1!4b1?hl=ko">강남역</a>
 					<div id="marker" title="Marker"></div>
 					<div id="popup" title="Welcome to OpenLayers"></div>
 				</div>
 
+				<!-- 지역 -->
+				<div id="localSelect">
+					<select id="local">
+						<option value="KB001">KB001</option>
+						<option value="KB002">KB002</option>
+						<option value="KB003">KB003</option>
+						<option value="KB004">KB004</option>
+						<option value="KB005">KB005</option>
+					</select>
+				</div>
+				
 				<!-- polygon -->
 				<div class="right">
 					<form class="form-inline">
@@ -95,7 +98,7 @@
 						</select>
 					</form>
 				</div>
-				
+
 				<!-- mapType change -->
 				<select id="layer-select">
 					<option value="Base">일반</option>
@@ -107,10 +110,10 @@
 				<button id="remove">마커 지우기</button>
 				<button id="remove_all">모든 마커 지우기</button>
 			</div>
-				
+
 			<!-- 리스트 -->
 			<div id="selectList">
-				<table class="table">
+				<table class="table" id="listTable">
 					<tr>
 						<td>site_code</td>
 						<td>날짜</td>
@@ -122,13 +125,19 @@
 				</table>
 				<div id="pageBtn"></div>
 			</div>
+			
+			<!-- excel -->
+			<div id="excel">
+<!-- 				<a href="/excelDown.do"><button id="excelDownload">엑셀변환</button></a> -->
+				<button id="excelDown" onclick="excel()">엑셀변환</button>
+			</div>
 
 		</div>
 
 		<!-- 왼쪽 -->
 		<div id="leftBoard">
-		
-		<!-- 그래프 -->
+
+			<!-- 그래프 -->
 			<div id="graph">
 				<canvas id="chart1"></canvas>
 			</div>
@@ -146,9 +155,8 @@
 		</div>
 
 		<!-- 오른쪽 -->
-		<div id="rightBoard">
-		</div>
-		
+		<div id="rightBoard"></div>
+
 	</div>
 </body>
 </html>

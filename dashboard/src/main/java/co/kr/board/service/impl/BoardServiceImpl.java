@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import co.kr.board.service.BoardService;
+import co.kr.board.vo.ExcelVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -21,8 +22,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> selectList(int offset, int limit) {
+	public List<HashMap<String, Object>> selectList(int offset, int limit, String local) {
 		HashMap<String, Object>page = new HashMap<>();
+		page.put("local", local);
 		page.put("offset", offset);
 		page.put("limit", limit);
 		return boardMapper.selectList(page);
@@ -33,12 +35,20 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.count(param);
 	}
 
+	@Override
+	public List<ExcelVO> allSelectList(String local) {
+		return boardMapper.allSelectList(local);
+	}
 //	@Override
-//	public List<HashMap<String, Object>> paging(int offset, int limit) {
-//		HashMap<String, Object>page = new HashMap<>();
-//		page.put("offset", offset);
-//		page.put("limit", limit);
-//		return boardMapper.selectList(page);
+//	public List<ExcelVO> allSelectList() {
+//		return boardMapper.allSelectList();
+//	}
+
+//	@Override
+//	public List<HashMap<String, Object>> allSelectList(String local) {
+//		HashMap<String, Object> param = new HashMap<>();
+//		param.put("local", local);
+//		return boardMapper.allSelectList(param);
 //	}
 
 }

@@ -20,6 +20,10 @@ var draw;
 var source = new ol.source.Vector({ wrapX : false });
 var vector = new ol.layer.Vector({ source : source }); //draw
 
+//평촌 스마트베이 좌표
+//37.399445, 126.968368 (구글좌표계)
+//14134054.072612971, 4494931.488042777 (vmap 좌표계)
+
 // 좌표
 // vmap좌표계로 변환 new ol.proj.fromLonLat();
 var position = new Array([14142266.321026677, 4508278.219870723],
@@ -188,22 +192,21 @@ function clickFeature2(){
 }
 
 
-function draw_features(){
+function draw_features() {
 	// select option type 선택
 	var typeSelect = document.getElementById('type');
 
 	function addInteraction() {
 		var value = typeSelect.value;
-		if (value !== 'None') {	
+		if (value !== 'None') {
 			draw = new ol.interaction.Draw({
 				source : source,
 				type : value
 			});
 			map.addInteraction(draw);
+		}else if(value == 'None'){
+			clickMaker();
 		}
-// 		else {
-//			clickMaker();
-//		}
 	}
 	
 	/*change 이벤트*/
@@ -220,10 +223,23 @@ function draw_features(){
 
 // 지도에 마우스로 클릭시 해당 위치에 마커 생성
 function clickMaker() {
+	
 	map.on('click', function(e) {
-
+		var typeSelect = document.getElementById('type');
+		var value = typeSelect.value;
+		
+		//select 'None'이 아닌 다른것이면 이벤트 해제
+		//map.js:229 Uncaught TypeError: map.off is not a function 에러가 왜뜨는지 모르겠음.(기능동작은 잘 되는듯 싶음)
+		if(value != 'None'){
+			map.off("click", function(){
+				console.log('good');
+			});
+		}
+		
 		var coordinate = e.coordinate;
-		var vectorSource = new ol.source.Vector({ wrapX : false });
+		var vectorSource = new ol.source.Vector({
+			wrapX : false
+		});
 		var feature = new ol.Feature({
 			geometry : new ol.geom.Point([ coordinate[0], coordinate[1] ]),
 		})
@@ -234,8 +250,8 @@ function clickMaker() {
 		})
 		// console.log(coordinate);
 		map.addLayer(vectorLayer);
+		
 	})
-
 }
 
 //Feature 정보 추출하기
@@ -272,7 +288,7 @@ function createMaker() {
 //마커 1개씩 지우기
 function remove(){
 	$("#remove").on("click", function(){
-		map.removeLayer(map.getAllLayers()[1])
+		map.removeLayer(map.getAllLayers()[2])
 	})
 }
 
@@ -281,7 +297,7 @@ function remove_all() {
 	$("#remove_all").on("click", function() {
 		var length = map.getAllLayers().length;
 		for (var i = 0; i < length; i++) {
-			map.removeLayer(map.getAllLayers()[1])
+			map.removeLayer(map.getAllLayers()[2])
 		}
 	})
 }

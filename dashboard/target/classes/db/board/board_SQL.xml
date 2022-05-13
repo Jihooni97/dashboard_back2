@@ -5,15 +5,28 @@
 	<select id="selectChart" resultType="HashMap">
 		SELECT	*	FROM	gw_data_value_org
 		WHERE	site_code 	=	'KB001'
-		ORDER BY data_time DESC
+		ORDER BY data_time ASC
 		LIMIT	200
+	</select>
+	
+	<select id="allSelectList" resultType="co.kr.board.vo.ExcelVO">
+		SELECT * FROM gw_data_value_org
+		WHERE site_code = #{local}
+		ORDER BY data_time ASC
 	</select>
 
 	<select id="selectList" resultType="HashMap">
 		SELECT	*	FROM	gw_data_value_org
-		WHERE	site_code 	=	'KB001'
+		WHERE	site_code 	=	#{local}
+		ORDER BY data_time ASC
 		LIMIT	5	OFFSET	#{offset}
 	</select>
+	
+<!-- 	<select id="selectList2" resultType="HashMap"> -->
+<!-- 		SELECT	*	FROM	gw_data_value_org -->
+<!-- 		WHERE	site_code 	=	'KB001' -->
+<!-- 		LIMIT	5	OFFSET	#{offset} -->
+<!-- 	</select> -->
 	
 	<select id="count" resultType="int">
 		SELECT COUNT(*) FROM gw_data_value_org

@@ -1,10 +1,6 @@
   package co.kr.board.web;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -13,18 +9,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Select;
-import org.json.simple.parser.JSONParser;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.kr.board.service.BoardService;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import co.kr.board.vo.ExcelVO;
 
 @Controller
 public class BoardController {
@@ -54,33 +52,21 @@ public class BoardController {
 		
 		//페이징
 		int nowPage = Integer.parseInt(param.get("nowPage").toString());
+		String local = (String)param.get("local");
 		int count = boardService.count(param);
 		//잘라서 보여줄 시작부분
 		int offset = (nowPage - 1) * 5;
 		int limit = 5;
 		
 		//리스트
-		List<HashMap<String, Object>> selectList = boardService.selectList(offset, limit);
+		List<HashMap<String, Object>> selectList = boardService.selectList(offset, limit, local);
 //		List<HashMap<String, Object>> list = boardService.paging(offset, limit);
+		json.addObject("local", local);
 		json.addObject("selectList", selectList);
 		json.addObject("count", count);
 		
 		return json;
 	}
-	
-//	@RequestMapping(value = "/paging.do", method = RequestMethod.POST)
-//	public ModelAndView paging(@RequestParam HashMap<String, Object>param){
-//		ModelAndView json = new ModelAndView("jsonView");
-//		
-//		int nowPage = Integer.parseInt(param.get("nowPage").toString());
-//		int count = boardService.count(param);
-//		int offset = (nowPage - 1) * 5;
-//		List<HashMap<String, Object>> list = boardService.paging(offset);
-//		json.addObject("list", list);
-//		json.addObject("count", count);
-//		
-//		return json;
-//	}	
 	
 	@RequestMapping(value = "/kriging.do")
 	public String kriging(){
@@ -88,6 +74,151 @@ public class BoardController {
 		return "/board/kriging";
 	}
 	
+	//미사용
+	@RequestMapping(value="/excelDown2.do")
+	public ModelAndView excelDown2(HttpServletResponse response, @RequestParam HashMap<String, Object>param) throws IOException{
+		ModelAndView json = new ModelAndView("jsonView");
+		
+		String local = (String)param.get("local");
+		
+		List<ExcelVO> list = boardService.allSelectList(local);
+		
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet("sheet");
+		
+		XSSFRow row = null;
+		XSSFCell cell = null;
+		int rowNum = 0;
+		
+		row = sheet.createRow(rowNum++);
+		
+		cell = row.createCell(0);
+		cell.setCellValue("site_code");
+		
+		cell = row.createCell(1);
+		cell.setCellValue("날짜");
+		
+		cell = row.createCell(2);
+		cell.setCellValue("수심(gl)");
+		
+		cell = row.createCell(3);
+		cell.setCellValue("전기전도도(ec)");
+		
+		cell = row.createCell(4);
+		cell.setCellValue("수온(temp)");
+		
+		for(ExcelVO vo : list){
+			row = sheet.createRow(rowNum++);
+			
+			cell = row.createCell(0);
+			cell.setCellValue(vo.getSite_code());
+			
+			cell = row.createCell(1);
+			cell.setCellValue(vo.getData_time());
+			
+			cell = row.createCell(2);
+			cell.setCellValue(vo.getGl());
+			
+			cell = row.createCell(3);
+			cell.setCellValue(vo.getEc());
+			
+			cell = row.createCell(4);
+			cell.setCellValue(vo.getTemp());	
+		}
+		
+		String fileName = "gw_data_value_org.xlsx";
+		String encordedFilename = URLEncoder.encode(fileName, "UTF-8");
+		
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition", "attachment;filename=" + encordedFilename);
+		
+		workbook.write(response.getOutputStream());
+		workbook.close();
+		
+		return json;
+		
+	}
+	
+	//excel download
+	@RequestMapping(value = "/excelDown.do")
+	public void excelDown(HttpServletResponse response, @RequestParam HashMap<String, Object>param, HttpServletRequest request) throws IOException{
+		
+
+		String gg = request.getParameter("local"); 
+		String local = (String)param.get("local");
+ 
+		List<ExcelVO> list = boardService.allSelectList(local);
+//		List<ExcelVO> list = boardService.allSelectList();
+		
+//		List<HashMap<String, Object>> list = boardService.allSelectList(local)
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(); //Excel workbook 생성
+		XSSFSheet sheet = workbook.createSheet("sheet"); //sheet 생성
+		System.out.println(workbook);
+		//sheet -> row -> cell 순서로 접근하여 값 입력
+		XSSFRow row = null;
+		XSSFCell cell = null;
+		int rowNum = 0;
+		
+		//스타일
+//		XSSFCellStyle headStyle = workbook.createCellStyle();
+//		headStyle.setBorderRight();
+		
+		//헤더 생성
+		row = sheet.createRow(rowNum++);
+		
+		cell = row.createCell(0);
+		cell.setCellValue("site_code");
+		
+		cell = row.createCell(1);
+		cell.setCellValue("날짜");
+		
+		cell = row.createCell(2);
+		cell.setCellValue("수심(gl)");
+		
+		cell = row.createCell(3);
+		cell.setCellValue("전기전도도(ec)");
+		
+		cell = row.createCell(4);
+		cell.setCellValue("수온(temp)");
+		
+		//반복문으로 데이터 뽑아오기
+		for(ExcelVO vo : list){
+			row = sheet.createRow(rowNum++);
+			
+			cell = row.createCell(0);
+			cell.setCellValue(vo.getSite_code());
+			
+			cell = row.createCell(1);
+			cell.setCellValue(vo.getData_time());
+			
+			cell = row.createCell(2);
+			cell.setCellValue(vo.getGl());
+			
+			cell = row.createCell(3);
+			cell.setCellValue(vo.getEc());
+			
+			cell = row.createCell(4);
+			cell.setCellValue(vo.getTemp());
+			
+		}
+		
+		//파일명
+		String fileName = "gw_data_value_org.xlsx";
+		//인코딩
+		String encordedFilename = URLEncoder.encode(fileName, "UTF-8");
+		
+		//컨텐츠 타입과 파일명 설정
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("Content-Disposition", "attachment;filename=" + encordedFilename);
+		
+		//엑셀 출력
+		workbook.write(response.getOutputStream());
+		workbook.close();
+	}
+	
+	
+
 	   //기상청 API 데이터
 /*	   @RequestMapping(value = "/data2.do", method = RequestMethod.GET)
 	   public ModelAndView data2(HttpServletRequest request, HttpServletResponse response, @RequestParam HashMap<String, Object> params) throws IOException, org.json.simple.parser.ParseException {
