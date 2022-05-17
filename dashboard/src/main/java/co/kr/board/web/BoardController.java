@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -16,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.kr.board.service.BoardService;
 import co.kr.board.vo.ExcelVO;
+import co.kr.security.UserVO;
 
 @Controller
 public class BoardController {
@@ -48,8 +51,7 @@ public class BoardController {
 	@RequestMapping(value = "/selectList.do", method = RequestMethod.POST)
 	public ModelAndView selectList(@RequestParam HashMap<String, Object>param){
 		ModelAndView json = new ModelAndView("jsonView");
-		
-		
+			
 		//페이징
 		int nowPage = Integer.parseInt(param.get("nowPage").toString());
 		String local = (String)param.get("local");
@@ -144,7 +146,7 @@ public class BoardController {
 	public void excelDown(HttpServletResponse response, @RequestParam HashMap<String, Object>param, HttpServletRequest request) throws IOException{
 		
 
-		String gg = request.getParameter("local"); 
+//		String gg = request.getParameter("local"); 
 		String local = (String)param.get("local");
  
 		List<ExcelVO> list = boardService.allSelectList(local);
@@ -216,6 +218,38 @@ public class BoardController {
 		workbook.write(response.getOutputStream());
 		workbook.close();
 	}
+	
+	@RequestMapping(value="/login.do")
+	public String login(){
+		
+		return "/board/loginPage";
+	}
+	
+	@RequestMapping(value="/signUpPage.do")
+	public String signUpPage() {
+		return "/board/signUpPage";
+	}
+	
+	@RequestMapping(value="/signUp.do", method = RequestMethod.POST)
+	public String signUp(@RequestParam HashMap<String, Object>param) {
+		boardService.user_signUp(param);
+		
+		return "/board/loginPage";
+	}
+	
+	@RequestMapping(value="/error.do")
+	public String errorPage(){
+		return "/board/errorPage";
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

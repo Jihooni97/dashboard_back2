@@ -41,6 +41,11 @@
 	margin-top : 1%;
 }
 
+#logoutBtn{
+	position : absolute;
+	margin-left: 85%;
+}
+
 #vmap{
 	width : 800px; 
 	height : 350px;
@@ -63,7 +68,7 @@
 	height : 700px;
 /* 	position : absolute; */
 	margin-left : 26.5%;
-/* 	margin-top : 1%; */
+	margin-top : 1%;
 }
 
 #excel{
@@ -75,7 +80,7 @@
 }
 
 #selectList{
-/* 	margin-top : 400px; */
+/* 	margin-top : 3%; */
 	padding-top : 50%;
 }
 

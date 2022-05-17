@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import co.kr.board.vo.ExcelVO;
+import co.kr.security.UserVO;
 
 public interface BoardService {
 
@@ -15,6 +16,11 @@ public interface BoardService {
 
 	public List<ExcelVO> allSelectList(String local);
 //	public List<ExcelVO> allSelectList();
+	
+	//로그인
+	public UserVO findOne(String userId);
+
+	public void user_signUp(HashMap<String, Object> param);
 
 //	public List<HashMap<String, Object>> allSelectList(String local);
 

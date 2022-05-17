@@ -9,21 +9,31 @@
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- openlayer -->
-<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/build/ol.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css">
+<script
+	src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.13.0/build/ol.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css"
+	type="text/css">
 <!-- bootstrap -->
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 <!-- chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
 <!-- weather -->
-<link rel="stylesheet" type="text/css" href="/css/weather-icons-master/css/weather-icons.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/css/weather-icons-master/css/weather-icons.min.css" />
 <!-- Pointer events polyfill for old browsers, see https://caniuse.com/#feat=pointer -->
 <script src="https://unpkg.com/elm-pep@1.0.6/dist/elm-pep.js"></script>
 <!-- The lines below are only needed for old environments like Internet Explorer and Android 4.x -->
-<script src="https://cdn.polyfill.io/v3/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,TextDecoder"></script>
+<script
+	src="https://cdn.polyfill.io/v3/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,TextDecoder"></script>
 
 <link rel="stylesheet" type="text/css" href="/css/dashboard.css" />
 <script type="text/javascript" src="/js/map.js"></script>
@@ -31,6 +41,7 @@
 <script type="text/javascript" src="/js/chart.js"></script>
 <!-- <script type="text/javascript" src="/js/list.js"></script> -->
 <script type="text/javascript" src="/js/list_test.js"></script>
+<script type="text/javascript" src="/js/logout.js"></script>
 </head>
 
 <body>
@@ -51,6 +62,11 @@
 				<!-- 제목 -->
 				<div id="board">
 					<h1>DashBoard</h1>
+				</div>
+
+				<div id="logoutBtn">
+					<!-- javascript:void(0) : 페이지가 바뀌면서 이동하지 않게 하고 싶을 때 사용 -->
+					<a href="javascript:void(0)" onclick="logout();"><button>로그아웃</button></a>
 				</div>
 
 			</div>
@@ -82,7 +98,7 @@
 						<option value="KB005">KB005</option>
 					</select>
 				</div>
-				
+
 				<!-- polygon -->
 				<div class="right">
 					<form class="form-inline">
@@ -125,10 +141,10 @@
 				</table>
 				<div id="pageBtn"></div>
 			</div>
-			
+
 			<!-- excel -->
 			<div id="excel">
-<!-- 				<a href="/excelDown.do"><button id="excelDownload">엑셀변환</button></a> -->
+				<!-- 				<a href="/excelDown.do"><button id="excelDownload">엑셀변환</button></a> -->
 				<button id="excelDown" onclick="excel()">엑셀변환</button>
 			</div>
 

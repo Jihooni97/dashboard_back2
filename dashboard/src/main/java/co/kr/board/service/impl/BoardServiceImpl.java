@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import co.kr.board.service.BoardService;
+import co.kr.security.UserVO;
 import co.kr.board.vo.ExcelVO;
 
 @Service("boardService")
@@ -43,6 +44,16 @@ public class BoardServiceImpl implements BoardService {
 //	public List<ExcelVO> allSelectList() {
 //		return boardMapper.allSelectList();
 //	}
+
+	@Override
+	public UserVO findOne(String userId) {
+		return boardMapper.findOne(userId);
+	}
+
+	@Override
+	public void user_signUp(HashMap<String, Object> param) {
+		boardMapper.user_signUp(param);		
+	}
 
 //	@Override
 //	public List<HashMap<String, Object>> allSelectList(String local) {
