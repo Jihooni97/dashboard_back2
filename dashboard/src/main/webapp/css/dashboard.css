@@ -1,5 +1,17 @@
 @CHARSET "UTF-8";
 
+#logout{
+	background-color: #8aa1a1;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	width: 80px;
+	height: 35px;
+	font-size: 12pt;
+	margin-top: 10px;
+	margin-left: 3.5%;
+}
+
 #loginPage{
 	position: absolute;
 	top: 40%;

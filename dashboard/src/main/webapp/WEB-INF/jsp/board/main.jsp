@@ -60,7 +60,7 @@
 
 				<div id="logoutBtn">
 					<!-- javascript:void(0) : 페이지가 바뀌면서 이동하지 않게 하고 싶을 때 사용 -->
-					<a href="javascript:void(0)" onclick="logout();"><button>로그아웃</button></a>
+					<a href="javascript:void(0)" onclick="logout();"><button id="logout">로그아웃</button></a>
 				</div>
 
 			</div>

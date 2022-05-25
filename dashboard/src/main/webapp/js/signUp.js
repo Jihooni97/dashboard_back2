@@ -69,4 +69,26 @@ function fn_idCheck(){
 	}
 	
 	var param = "?user_id=" + $.trim($("#user_id").val());
+	
+	$.ajax({
+		type : "GET",
+		url : "/idCheck.do"+param,
+		dataType : "text",
+		async : false,
+		success : function(res){
+			if($.trim(res)=="Y"){
+				alert("사용가능한 아이디입니다.");
+				$("#checkId").val($.trim($("#user_id").val()));
+				return;
+			}else{
+				alert("이미 등록된 아이디 입니다.");
+				$("#checkId").val("");
+				return;
+			}
+		},
+		error : function(){
+			alert("ID중복체크 실패");
+			return;
+		}
+	});
 }

@@ -44,6 +44,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 //		params.put("login_count", login_count);
 		Integer enabled = Integer.parseInt((String) params.get("enabled"));
 		System.out.println(enabled.getClass().getName());
+		Integer login_count = Integer.parseInt((String)params.get("login_count"));
+		params.put("login_count", login_count);
 		params.put("enabled", enabled);
 		params.put("encode_password", encodePassword);
 		

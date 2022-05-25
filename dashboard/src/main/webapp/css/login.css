@@ -65,10 +65,11 @@ button {
 	border: none;
 	color: white;
 	border-radius: 5px;
-	width: 100%;
+	width: 280px;
 	height: 35px;
 	font-size: 14pt;
 	margin-top: 10px;
+	margin-left: 3.5%;
 }
 
 #forgot {

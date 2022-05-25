@@ -15,7 +15,7 @@
 <body>
 	<div id="signPage">
 		<form name="signUp-form" id="signUp-form" method="POST">
-			<!-- 		<input type="hidden" name="checkId" id="checkId"> -->
+			<input type="hidden" name="checkId" id="checkId" value="">
 			<header>
 			<h2>회원가입</h2>
 			</header>
