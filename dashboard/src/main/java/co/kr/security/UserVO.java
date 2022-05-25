@@ -7,49 +7,39 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/*
+ * getAuthorities() 리턴타입 Collection<? extends GrantedAuthority> 계정의 권한 목록을 리턴
+ * getPassword() 리턴타입 String 계정의 비밀번호를 리턴
+ * getUsername() 리턴타입 String 계정의 고유한 값을 리턴(ex : DB PK값, 중복이 없는 이메일 값)
+ * isAccountNonExpired() 리턴타입 boolean 계정의 만료 여부 리턴 (true 만료안됨)
+ * isAccountNonLocked() 리턴타입 boolean 계정의 잠김 여부 리턴 (true 잠기지 않음)
+ * isCredentialsNonExpired() 리턴타입 boolean 비밀번호 만료 여부 리턴 (true 만료안됨)
+ * isEnabled() 리턴타입 boolean 계정의 활성화 여부 리턴 (true 활성화됨)
+ * */
+
 public class UserVO implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	
-	//아이디
-	private String userId;
-	//비밀번호
+	private String user_id;
 	private String password;
-	//사용자 이름
-	private String name;
-	//이메일
-	private String email;
-	//권한
 	private String authorities;
-	//전화번호
-	private String tel;
-	private int login_count;
+	private String name;
 	private boolean enabled;
+//	private String tel;
+//	private String email;
 	
-	@Override
-	public String getUsername() {
-		return userId;
+	
+	public String getUser_id() {
+		return user_id;
 	}
-	@Override
-	public String getPassword(){
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getPassword() {
 		return password;
 	}
-	@Override
-	public boolean isAccountNonExpired() {
-		return false;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		return false;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return false;
-	}
-	
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-		auth.add(new SimpleGrantedAuthority(authorities));
-		return auth;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public void setAuthorities(String authorities) {
 		this.authorities = authorities;
@@ -60,42 +50,36 @@ public class UserVO implements UserDetails{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUserId(){
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getTel() {
-		return tel;
-	}
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-	public int getLogin_count() {
-		return login_count;
-	}
-	public void setLogin_count(int login_count) {
-		this.login_count = login_count;
-	}
-	public boolean isEnabled() {
-		return enabled;
-	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 	
-	public UserVO() {
-		super();
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+		auth.add(new SimpleGrantedAuthority(authorities));
+		return auth;
 	}
+	@Override
+	public String getUsername() {
+		return user_id;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return enabled;
+	}	
+	
 	
 }

@@ -213,7 +213,10 @@
 		</dependency>
 		<!-- **************************************************************** -->
 
-		<!-- Security -->
+		<!-- 
+			Security
+			비밀번호 암호화 core, web, config 3개 필요 
+		 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>

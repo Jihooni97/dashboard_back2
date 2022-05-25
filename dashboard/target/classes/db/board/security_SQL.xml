@@ -1,37 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.kr.board.service.impl.BoardMapper">
+<mapper namespace="co.kr.security.service.impl.SecurityMapper">
 
-	<resultMap type="co.kr.security.UserVO" id="userMap">
-		<id column="user_id" property = "userId"/>
+	<resultMap type="co.kr.security.UserVO" id="userVO">
+		<id column="user_id" property = "user_id"/>
 		<id column="password" property = "password"/>
 		<id column="authorities" property = "authorities"/>
 		<id column="name" property = "name"/>
-		<id column="email" property = "email "/>
-		<id column="enabled" property = "enabled"/>
+<!-- 		<id column="email" property = "email "/> -->
+<!-- 		<id column="enabled" property = "enabled"/> -->
 	</resultMap>
-
-<!-- 로그인 -->
-<select id="findOne" parameterType="String" resultMap="userMap">
-		SELECT user_id, 
-       			password, 
-       			authorities, 
-       			name, 
-       			email, 
-       			enabled
-		FROM tb_user
-		WHERE user_id = #{userId}
+	
+	<select id="login" parameterType="String" resultMap="userVO">
+		SELECT * FROM userinfo WHERE user_id = #{user_id}
 	</select>
-
-<!-- 	<select id="findOne" parameterType="String" resultMap="userMap"> -->
-<!-- 		SELECT user_id,  -->
-<!--        			password,  -->
-<!--        			(select authorities from tb_user_auth b where b.user_id = a.user_id) as authorities,  -->
-<!--        			name,  -->
-<!--        			email,  -->
-<!--        			enabled -->
-<!-- 		FROM tb_user a -->
-<!-- 		WHERE user_id = #{userId} -->
-<!-- 	</select> -->
+	
+	<select id="selectCnt" resultType="int">
+		SELECT	login_count
+		FROM	userinfo
+		WHERE	user_id = #{user_id}
+	</select>
+	
+	<update id="plusCnt">
+		UPDATE userinfo
+		SET	login_count = login_count + 1
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<select id="exists" resultType="int">
+		SELECT COUNT(*)
+		FROM userinfo
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<update id="lock">
+		UPDATE userinfo
+		SET enabled = 0
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<update id="resetCnt">
+		UPDATE userinfo
+		SET
+		login_count = 0
+		WHERE user_id = #{user_id}
+	</update>
+	
+	<select id="user_signUp">
+		INSERT INTO userinfo(
+		user_id,
+		name,
+		password,
+		email,
+		tel,
+		encode_password,
+		authorities,
+		create_date,
+		enabled,
+		gender,
+		login_count
+		)
+		VALUES(
+		#{user_id},
+		#{name},
+		#{password},
+		#{email},
+		#{tel},
+		#{encode_password},
+		#{authorities},
+		now(),
+		#{enabled},
+		#{gender},
+		#{login_count}
+		)
+	</select>
 	
 </mapper>

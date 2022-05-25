@@ -45,15 +45,15 @@ public class BoardServiceImpl implements BoardService {
 //		return boardMapper.allSelectList();
 //	}
 
-	@Override
-	public UserVO findOne(String userId) {
-		return boardMapper.findOne(userId);
-	}
+//	@Override
+//	public UserVO findOne(String userId) {
+//		return boardMapper.findOne(userId);
+//	}
 
-	@Override
-	public void user_signUp(HashMap<String, Object> param) {
-		boardMapper.user_signUp(param);		
-	}
+//	@Override
+//	public void user_signUp(HashMap<String, Object> param) {
+//		boardMapper.user_signUp(param);		
+//	}
 
 //	@Override
 //	public List<HashMap<String, Object>> allSelectList(String local) {

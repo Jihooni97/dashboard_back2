@@ -1,46 +1,9 @@
 $(function(){
-	//list
 	list(1);
-//	excelDown();
-	
-	typeChange();
 })
 
-function typeChange(){
-	var typeChange = document.getElementById("local");
-	
-	typeChange.onchange = function(){
-		list(1);
-	}
-}
-
-function excel(){
-var data = {"local" : $("#local option:selected").val()};
-	
-		$.ajax({
-			url : "/excelDown.do",
-			data : data,
-			success : function(r){
-				console.log("성공");
-			}
-		})
-}
-
-//function excelDown(){
-//
-//	$("#excelDownload").on("click", function(){
-//		var localValue = { "local" : $("#local option:selected").val() };
-//		$.ajax({
-//			url : "/excelDown.do",
-//			type : "POST",
-//			data : localValue
-//		})
-//	})
-//}
-
 function list(page){
-	
-	var data = {"nowPage" : page, "local" : $("#local option:selected").val()};
+	var data = {"nowPage" : page, "local" : $("[name=local]").val()};
 	
 	$.ajax({
 		url : "/selectList.do",
@@ -51,7 +14,18 @@ function list(page){
 		success : function(result) {
 			$("#table").empty();
 			$("#pageBtn").empty();
-				
+			
+//			for(var i = 0; i < result.selectList.length; i++){
+//				var year = result.selectList[i].data_time.substr(2,2);
+//				var month = result.selectList[i].data_time.substr(4,2);
+//				var day = result.selectList[i].data_time.substr(6,2);
+//				var hour = result.selectList[i].data_time.substr(8,2);
+//				var minute = result.selectList[i].data_time.substr(10,2);
+//				var second = result.selectList[i].data_time.substr(12,2);
+//			}
+			
+			
+			
 			//paging	
 			var totalPage = Math.ceil(result.count/5.0); // 전체 데이터 5개씩 끊어서 페이지 수 구하기
 			var pageBlock = Math.ceil(totalPage/5.0); // 한블럭당 5페이지씩 보여지도록
@@ -71,7 +45,7 @@ function list(page){
 				var hour = result.selectList[i].data_time.substr(8,2);
 				var minute = result.selectList[i].data_time.substr(10,2);
 				var second = result.selectList[i].data_time.substr(12,2);
-						
+				
 				var html = '<tr>';
 				html += '<td>' + result.selectList[i].site_code + '</td>';
 				html += '<td>' + year + "년" + month + "월" + day + "일" + hour + "시" + '</td>';
@@ -81,8 +55,8 @@ function list(page){
 				html += '<td>' + '</td>';
 				html += '</tr>';
 				$('#table').append(html);
-			};
-
+			}
+			
 			// 뒤로가기버튼
 			if(page>1){
 				var prevBtn = "<button onclick='list(" + (page-1) + ")'> 이전 </button>" 
@@ -99,9 +73,16 @@ function list(page){
 			if(page != totalPage){
 				var nextBtn = "<button onclick='list(" + (page+1) + ")'> 다음 </button>" 
 				$("#pageBtn").append(nextBtn);
-			}	
-			
+			}
 		}
 	});
 	
+}
+
+function reload(){
+	var typeSelect = document.getElementById('local');
+	
+	typeSelect.onchange = function(){
+		window.location.re
+	}
 }

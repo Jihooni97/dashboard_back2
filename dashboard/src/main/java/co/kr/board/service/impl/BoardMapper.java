@@ -19,9 +19,9 @@ public interface BoardMapper {
 	public List<ExcelVO> allSelectList(String local);
 //	public List<ExcelVO> allSelectList();
 	
-	public UserVO findOne (String userId);
+//	public UserVO findOne (String userId);
 
-	public void user_signUp(HashMap<String, Object> param);
+//	public void user_signUp(HashMap<String, Object> param);
 
 //	public List<HashMap<String, Object>> allSelectList(HashMap<String, Object>param);
 		
