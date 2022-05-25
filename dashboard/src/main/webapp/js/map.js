@@ -288,7 +288,7 @@ function createMaker() {
 //마커 1개씩 지우기
 function remove(){
 	$("#remove").on("click", function(){
-		map.removeLayer(map.getAllLayers()[2])
+		map.removeLayer(map.getAllLayers()[1])
 	})
 }
 
@@ -297,7 +297,7 @@ function remove_all() {
 	$("#remove_all").on("click", function() {
 		var length = map.getAllLayers().length;
 		for (var i = 0; i < length; i++) {
-			map.removeLayer(map.getAllLayers()[2])
+			map.removeLayer(map.getAllLayers()[1])
 		}
 	})
 }
